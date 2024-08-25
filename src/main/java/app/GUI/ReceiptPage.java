@@ -363,6 +363,8 @@ public class ReceiptPage extends JPanel {
         try {
             Object o = s.ReadFile("dev_cafe/data/bill_details_data.txt");
             
+            int total_price = 0;
+
             if (o instanceof ArrayList<?>) {
                 @SuppressWarnings("unchecked")
                 ArrayList<BillDetail> bill= (ArrayList<BillDetail>) o;
@@ -375,9 +377,20 @@ public class ReceiptPage extends JPanel {
                     rowData.add(bd.getItem().getServeHot() ? "Cold" : "Hot");
                     rowData.add(String.valueOf(bd.getQuantity()));
                     rowData.add(String.valueOf(bd.getTotal_price()));
+
+                    total_price += bd.getTotal_price();
+
                     productTableModel.addRow(rowData);
                 }
             }
+
+            Vector<String> endRowData = new Vector<>();
+            endRowData.add("");
+            endRowData.add("");
+            endRowData.add("");
+            endRowData.add("");
+            endRowData.add(String.valueOf(total_price));
+            productTableModel.addRow(endRowData);
 
             s.SaveFile("", "dev_cafe/data/bill_details_data.txt");
 
