@@ -62,7 +62,7 @@ public class ReceiptPage extends JPanel {
     private JLabel pointGained;
     private JLabel discountAmount;
     private JTextField phoneInput;
-    private JLabel discount;
+    private double discount;
     private int points;
 
     public ReceiptPage() {
@@ -155,7 +155,7 @@ public class ReceiptPage extends JPanel {
         left.add(nameLabel);
 
         nameText = new JLabel("");
-        nameText.setPreferredSize(new Dimension(140, 25));
+        nameText.setPreferredSize(new Dimension(200, 25));
         nameText.setForeground(new Color(255, 213, 146));
         nameText.setFont(customFont.getFernandoFont(13));
         left.add(nameText);
@@ -294,6 +294,12 @@ public class ReceiptPage extends JPanel {
         findButton.setForeground(new Color(79, 92, 133));
         findButton.setBackground(new Color(255, 213, 146));
 
+        JButton exportButton = new JButton("Xuất hóa đơn");
+        exportButton.setFont(customFont.getFernandoFont(9));
+        exportButton.setPreferredSize(new Dimension(120, 25));
+        exportButton.setForeground(new Color(79, 92, 133));
+        exportButton.setBackground(new Color(255, 213, 146));
+
         ReadSaveFromFile s = new ReadSaveFromFile();
 
         try {
@@ -332,8 +338,10 @@ public class ReceiptPage extends JPanel {
                     points = m.getPoints();
         
                     if (points >= 1000) {
+                        discount = 0.1;
                         discountAmount.setText("10%");
                     } else if (points >= 500) {
+                        discount = 0.05;
                         discountAmount.setText("5%");
                     } else {
                         discountAmount.setText("No discount");
@@ -345,6 +353,7 @@ public class ReceiptPage extends JPanel {
         });
 
         editPanel.add(findButton);
+        editPanel.add(exportButton);
         esPanel.add(editPanel, BorderLayout.NORTH);
 
         productTableModel = new DefaultTableModel() {
@@ -384,12 +393,13 @@ public class ReceiptPage extends JPanel {
                 }
             }
 
+            
             Vector<String> endRowData = new Vector<>();
             endRowData.add("");
             endRowData.add("");
             endRowData.add("");
-            endRowData.add("");
-            endRowData.add(String.valueOf(total_price));
+            endRowData.add("Total Price: ");
+            endRowData.add(String.valueOf(total_price * (1 - this.discount)));
             productTableModel.addRow(endRowData);
 
             s.SaveFile("", "dev_cafe/data/bill_details_data.txt");
