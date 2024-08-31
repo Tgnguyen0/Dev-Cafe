@@ -316,7 +316,9 @@ public class ReceiptPage extends JPanel {
             ee.printStackTrace();
         }
 
-        findButton.addActionListener(new ActionListener() {
+        /*findButton.addActionListener(new ActionListener() {
+            private double d = 0.0;
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 String phoneStr = phoneInput.getText();
@@ -338,10 +340,10 @@ public class ReceiptPage extends JPanel {
                     points = m.getPoints();
         
                     if (points >= 1000) {
-                        discount = 0.1;
+                        d = 0.1;
                         discountAmount.setText("10%");
                     } else if (points >= 500) {
-                        discount = 0.05;
+                        d = 0.05;
                         discountAmount.setText("5%");
                     } else {
                         discountAmount.setText("No discount");
@@ -350,7 +352,9 @@ public class ReceiptPage extends JPanel {
                     JOptionPane.showMessageDialog(null, "No member found with the given phone number.");
                 }
             }
-        });
+
+            this.discount = d;
+        });*/
 
         editPanel.add(findButton);
         editPanel.add(exportButton);

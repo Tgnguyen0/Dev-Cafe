@@ -22,7 +22,7 @@ import javax.swing.border.Border;
 // old Color: 161, 103, 37
 // old OnClick Color: 196, 125, 44
 
-public class DevCafeGUI extends JFrame implements MouseListener, ActionListener {
+public class DevCafeGUI extends JPanel implements MouseListener, ActionListener {
 
     private JLabel timeLabel;
     private JPanel right;
@@ -48,18 +48,6 @@ public class DevCafeGUI extends JFrame implements MouseListener, ActionListener 
     public DevCafeGUI() {
         ImageIcon icon = new ImageIcon("dev_cafe/asset/icon.png"); // For vscode
         // ImageIcon icon = new ImageIcon("asset/icon.png"); // for eclipse, Intelj
-        setTitle("Dev Cafe");
-        setSize(new Dimension(1300, 682));
-
-        setIconImage(icon.getImage());
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        setBackground(new Color(96, 69, 113));
-        setResizable(true);
-        getContentPane().setBackground(new Color(225, 203, 177));
-        //setLayout(new FlowLayout(FlowLayout.CENTER));
-        
         setLayout(new BorderLayout());
 
         createGUIUserRelatedBar();
@@ -374,12 +362,6 @@ public class DevCafeGUI extends JFrame implements MouseListener, ActionListener 
     private void startTimer() {
         Timer timer = new Timer(1000, e -> updateTime());
         timer.start();
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new DevCafeGUI().setVisible(true));
-        // DevCafeGUI frame = new DevCafeGUI();
-        // frame.setVisible(true);
     }
 
     @Override
