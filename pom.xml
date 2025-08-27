@@ -31,6 +31,77 @@
       <artifactId>jfreechart</artifactId>
       <version>1.5.3</version>
     </dependency>
+
+    <dependency>
+        <groupId>com.formdev</groupId>
+        <artifactId>flatlaf</artifactId>
+        <version>3.4</version> <!-- Hoặc bản mới nhất -->
+    </dependency>
+
+    <dependency>
+      <groupId>net.java.dev.timingframework</groupId>
+      <artifactId>timingframework</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+    <!-- Core -->
+    <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-core</artifactId>
+        <version>12.4.0</version>
+    </dependency>
+
+    <!-- Swing binding -->
+    <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-swing</artifactId>
+        <version>12.4.0</version>
+    </dependency>
+
+    <!-- FontAwesome Icons -->
+    <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-fontawesome5-pack</artifactId>
+        <version>12.4.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-materialdesign2-pack</artifactId>
+        <version>12.4.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-feather-pack</artifactId>
+        <version>12.4.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.kordamp.ikonli</groupId>
+        <artifactId>ikonli-fontawesome6-pack</artifactId>
+        <version>12.4.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
+    <dependency>
+        <groupId>com.toedter</groupId>
+        <artifactId>jcalendar</artifactId>
+        <version>1.4</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout -->
+    <dependency>
+        <groupId>com.miglayout</groupId>
+        <artifactId>miglayout</artifactId>
+        <version>3.7.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+      <version>4.11.0</version>
+    </dependency>
 </dependencies>
 
   <build>

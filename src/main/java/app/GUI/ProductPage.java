@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,7 +34,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.swing.FontIcon;
+
 import app.AppFunctions.CafeFunction;
+import app.Components.CustomTableCellRenderer;
+import app.Components.CustomTableHeaderRenderer;
 import app.InitFont.CustomFont;
 import app.Object.*;
 import app.SaveToFile.ReadSaveFromFile;
@@ -43,6 +50,9 @@ public class ProductPage extends JPanel {
     private JTextField idInput;
     private JRadioButton servedHotRadio;
     private JTextField priceInput;
+    private JComboBox<String> categoryComboBox;
+    private JRadioButton statusRadioButton;
+    private JTextField sizeInput;
     private String id;
     private String name;
     private Boolean servedHot;
@@ -53,8 +63,7 @@ public class ProductPage extends JPanel {
     public ProductPage() {
         setPreferredSize(new Dimension(1100, 500));
         setLayout(new BorderLayout());
-        //setBackground(new Color(225, 203, 177));
-        setOpaque(false);
+        setBackground(Color.white);
 
         JPanel empty = new JPanel();
         empty.setPreferredSize(new Dimension(1100, 140));
@@ -65,52 +74,39 @@ public class ProductPage extends JPanel {
         createEmpTablePanel();
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        String imagePath = "dev_cafe/asset/background.png"; // Path to your GIF image file
-        File imageFile = new File(imagePath);
+    // @Override
+    // protected void paintComponent(Graphics g) {
+    // String imagePath = "dev_cafe/asset/background.png"; // Path to your GIF image
+    // file
+    // File imageFile = new File(imagePath);
 
-        //Chèn ảnh vào Option menu
-        try {
-            // Đọc ảnh từ file
-            Image image = ImageIO.read(imageFile);
+    // // Chèn ảnh vào Option menu
+    // try {
+    // // Đọc ảnh từ file
+    // Image image = ImageIO.read(imageFile);
 
-            // Tạo icon cho ảnh
-            int newWidth = getWidth(); // Get the width of the panel
-            int newHeight = getHeight(); // Get the height of the panel
-            Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-            g.drawImage(scaledImage, 0, 0, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // // Tạo icon cho ảnh
+    // int newWidth = getWidth(); // Get the width of the panel
+    // int newHeight = getHeight(); // Get the height of the panel
+    // Image scaledImage = image.getScaledInstance(newWidth, newHeight,
+    // Image.SCALE_SMOOTH);
+    // g.drawImage(scaledImage, 0, 0, null);
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
 
     private void createEmpTextBox() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setPreferredSize(new Dimension(1100, 300));
+        panel.setPreferredSize(new Dimension(1100, 200));
         panel.setOpaque(false);
-        //panel.setBackground(new Color(225, 203, 177));
-
-        JPanel emptyW = new JPanel();
-        emptyW.setPreferredSize(new Dimension(15, 300));
-        emptyW.setOpaque(false);
-        panel.add(emptyW, BorderLayout.WEST);
+        // panel.setBackground(new Color(225, 203, 177));
 
         JPanel emptyN = new JPanel();
         emptyN.setPreferredSize(new Dimension(1100, 20));
         emptyN.setOpaque(false);
         panel.add(emptyN, BorderLayout.NORTH);
-
-        JPanel emptyE = new JPanel();
-        emptyE.setPreferredSize(new Dimension(15, 300));
-        emptyE.setOpaque(false);
-        panel.add(emptyE, BorderLayout.EAST);
-
-        JPanel emptyS = new JPanel();
-        emptyS.setPreferredSize(new Dimension(1100, 15));
-        emptyS.setOpaque(false);
-        panel.add(emptyS, BorderLayout.SOUTH);
 
         JPanel tbiPanel = new JPanel();
         tbiPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -128,32 +124,46 @@ public class ProductPage extends JPanel {
         left.setPreferredSize(new Dimension(330, 300));
 
         JLabel idLabel = new JLabel("Id: ");
-        idLabel.setFont(customFont.getFernandoFont(13));
-        idLabel.setForeground(new Color(255, 213, 146));
+        idLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        idLabel.setForeground(Color.black);
         idLabel.setPreferredSize(new Dimension(120, 25));
         left.add(idLabel);
 
         idInput = new JTextField();
         idInput.setPreferredSize(new Dimension(140, 25));
-        idInput.setBackground(new Color(255, 213, 146));
-        idInput.setFont(customFont.getFernandoFont(9));
-        idInput.setForeground(new Color(79, 92, 133));
+        idInput.setBackground(new Color(241, 211, 178));
+        idInput.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        idInput.setForeground(Color.black);
         idInput.setBorder(BorderFactory.createLineBorder(new Color(21, 24, 48)));
         left.add(idInput);
 
         JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setFont(customFont.getFernandoFont(13));
-        nameLabel.setForeground(new Color(255, 213, 146));
+        nameLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        nameLabel.setForeground(Color.black);
         nameLabel.setPreferredSize(new Dimension(120, 25));
         left.add(nameLabel);
 
         nameInput = new JTextField();
         nameInput.setPreferredSize(new Dimension(140, 25));
-        nameInput.setBackground(new Color(255, 213, 146));
-        nameInput.setFont(customFont.getFernandoFont(9));
-        nameInput.setForeground(new Color(79, 92, 133));
+        nameInput.setBackground(new Color(241, 211, 178));
+        nameInput.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        nameInput.setForeground(Color.black);
         nameInput.setBorder(BorderFactory.createLineBorder(new Color(21, 24, 48)));
         left.add(nameInput);
+
+        JLabel sizeLabel = new JLabel("Size: ");
+        sizeLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        sizeLabel.setForeground(Color.black);
+        sizeLabel.setPreferredSize(new Dimension(120, 25));
+        left.add(sizeLabel);
+
+        sizeInput = new JTextField();
+        sizeInput.setPreferredSize(new Dimension(140, 25));
+        sizeInput.setBackground(new Color(241, 211, 178));
+        sizeInput.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        sizeInput.setForeground(Color.black);
+        sizeInput.setBorder(BorderFactory.createLineBorder(new Color(21, 24, 48)));
+        left.add(sizeInput);
 
         tbPanel.add(left);
 
@@ -163,32 +173,47 @@ public class ProductPage extends JPanel {
         right.setPreferredSize(new Dimension(330, 300));
 
         JLabel priceLabel = new JLabel("Price: ");
-        priceLabel.setFont(customFont.getFernandoFont(13));
-        priceLabel.setForeground(new Color(255, 213, 146));
+        priceLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        priceLabel.setForeground(Color.black);
         priceLabel.setPreferredSize(new Dimension(120, 25));
         right.add(priceLabel);
 
         priceInput = new JTextField();
         priceInput.setPreferredSize(new Dimension(140, 25));
-        priceInput.setBackground(new Color(255, 213, 146));
-        priceInput.setFont(customFont.getFernandoFont(9));
-        priceInput.setForeground(new Color(79, 92, 133));
+        priceInput.setBackground(new Color(241, 211, 178));
+        priceInput.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        priceInput.setForeground(Color.black);
         priceInput.setBorder(BorderFactory.createLineBorder(new Color(21, 24, 48)));
         right.add(priceInput);
 
-        JLabel hotLabel = new JLabel("Cold: ");
-        hotLabel.setFont(customFont.getFernandoFont(13));
-        hotLabel.setForeground(new Color(255, 213, 146));
-        hotLabel.setPreferredSize(new Dimension(120, 25));
-        right.add(hotLabel);
+        JLabel categoryLabel = new JLabel("Category: ");
+        categoryLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        categoryLabel.setForeground(Color.black);
+        categoryLabel.setPreferredSize(new Dimension(120, 25));
+        right.add(categoryLabel);
 
-        servedHotRadio = new JRadioButton();
-        servedHotRadio.setPreferredSize(new Dimension(140, 25));
-        servedHotRadio.setBackground(new Color(255, 213, 146));
-        servedHotRadio.setFocusPainted(false);
-        servedHotRadio.setOpaque(false);
-        servedHotRadio.setBorder(BorderFactory.createLineBorder(new Color(21, 24, 48)));
-        right.add(servedHotRadio);
+        categoryComboBox = new JComboBox<String>();
+        categoryComboBox.setPreferredSize(new Dimension(140, 25));
+        categoryComboBox.setBackground(new Color(241, 211, 178));
+        categoryComboBox.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        categoryComboBox.setForeground(Color.black);
+        categoryComboBox.setBorder(BorderFactory.createLineBorder(new Color(21, 24, 48)));
+        categoryComboBox.addItem("Coffee");
+        categoryComboBox.addItem("Juice");
+        categoryComboBox.addItem("Cocoa");
+        categoryComboBox.addItem("Tea");
+        right.add(categoryComboBox);
+
+        JLabel statusLabel = new JLabel("Status: ");
+        statusLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        statusLabel.setForeground(Color.black);
+        statusLabel.setPreferredSize(new Dimension(120, 25));
+        right.add(statusLabel);
+
+        statusRadioButton = new JRadioButton("In stock");
+        statusRadioButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        statusRadioButton.setForeground(Color.black);
+        right.add(statusRadioButton);
 
         tbPanel.add(right);
 
@@ -197,11 +222,12 @@ public class ProductPage extends JPanel {
         JPanel imgPanel = new JPanel();
         imgPanel.setLayout(new BorderLayout());
         imgPanel.setPreferredSize(new Dimension(250, 300));
-        //Border lineBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(255, 213, 146));
-        //imgPanel.setBorder(lineBorder);
+        // Border lineBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, new
+        // Color(241, 211, 178));
+        // imgPanel.setBorder(lineBorder);
         imgPanel.setOpaque(false);
 
-        String imagePath = "dev_cafe/asset/food.png";
+        String imagePath = "dev_cafe/asset/placeholder.png";
         Image scaledImage;
 
         try {
@@ -209,9 +235,10 @@ public class ProductPage extends JPanel {
             Image image = ImageIO.read(new File(imagePath));
 
             // Scale the image
-            int newWidth = image.getWidth(null) / 4; // Desired width
-            int newHeight = image.getHeight(null) / 4; // Desired height
-            scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            int newWidth = (int) (200 * 0.8f); // Desired width
+            int newHeight = (int) (200 * 0.8f); // Desired height
+            scaledImage = image.getScaledInstance(newWidth, newHeight,
+                    Image.SCALE_SMOOTH);
 
             // Create an ImageIcon from the scaled image
             ImageIcon imageIcon = new ImageIcon(scaledImage);
@@ -228,8 +255,8 @@ public class ProductPage extends JPanel {
         }
 
         tbPanel.add(imgPanel);
-        
-        //tbiPanel.add(imgPanel, BorderLayout.SOUTH);
+
+        // tbiPanel.add(imgPanel, BorderLayout.SOUTH);
         panel.add(tbiPanel, BorderLayout.CENTER);
 
         add(panel, BorderLayout.NORTH);
@@ -252,21 +279,98 @@ public class ProductPage extends JPanel {
         emptyE.setOpaque(false);
         tablePanel.add(emptyE, BorderLayout.EAST);
 
-        //panel.setBackground(new Color(225, 203, 177));
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panel.setPreferredSize(new Dimension(800, 50));
+        panel.setOpaque(false);
+
+        JPanel left = new JPanel();
+        left.setLayout(new FlowLayout(FlowLayout.LEFT));
+        left.setPreferredSize(new Dimension(360, 35));
+        Border lineBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black);
+        left.setBorder(lineBorder);
+        left.setOpaque(false);
+
+        JLabel searchLabel = new JLabel("Search Products:");
+        searchLabel.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        searchLabel.setForeground(Color.black);
+        searchLabel.setPreferredSize(new Dimension(120, 25)); // Thay đổi kích thước cho phù hợp
+        left.add(searchLabel);
+
+        JTextField searchBar = new JTextField();
+        searchBar.setForeground(Color.black);
+        searchBar.setBackground(new Color(241, 211, 178));
+        searchBar.setBorder(null);
+        searchBar.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        searchBar.setPreferredSize(new Dimension(170, 25)); // Thay đổi kích thước cho phù hợp và vị trí
+        left.add(searchBar);
+
+        FontIcon lookingGlassIcon = FontIcon.of(Feather.SEARCH, 24, Color.BLACK);
+        JButton findProduct = new JButton(lookingGlassIcon);
+        findProduct.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        findProduct.setForeground(Color.black);
+        findProduct.setBackground(new Color(241, 211, 178));
+        findProduct.setPreferredSize(new Dimension(30, 30));
+        findProduct.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        left.add(findProduct);
+
+        panel.add(left);
+
+        JPanel right = new JPanel();
+        right.setLayout(new FlowLayout(FlowLayout.LEFT));
+        right.setPreferredSize(new Dimension(490, 35));
+        right.setOpaque(false);
+
+        JButton addButton = new JButton("Add");
+        addButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        addButton.setPreferredSize(new Dimension(100, 25));
+        addButton.setForeground(Color.black);
+        addButton.setBackground(new Color(241, 211, 178));
+        right.add(addButton);
+
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        deleteButton.setPreferredSize(new Dimension(100, 25));
+        deleteButton.setForeground(Color.black);
+        deleteButton.setBackground(new Color(241, 211, 178));
+        right.add(deleteButton);
+
+        JButton cancelChangeButton = new JButton("Cancel Change");
+        cancelChangeButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        cancelChangeButton.setPreferredSize(new Dimension(140, 25));
+        cancelChangeButton.setForeground(Color.black);
+        cancelChangeButton.setBackground(new Color(241, 211, 178));
+        right.add(cancelChangeButton);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        saveButton.setPreferredSize(new Dimension(100, 25));
+        saveButton.setForeground(Color.black);
+        saveButton.setBackground(new Color(241, 211, 178));
+        right.add(saveButton);
+
+        panel.add(right);
+
+        tablePanel.add(panel, BorderLayout.NORTH);
+
+        // panel.setBackground(new Color(225, 203, 177));
 
         this.tableModel = new DefaultTableModel();
         tableModel.addColumn("N0");
         tableModel.addColumn("Name");
+        tableModel.addColumn("Size");
         tableModel.addColumn("Price");
+        tableModel.addColumn("Category");
+        tableModel.addColumn("Status");
 
         ReadSaveFromFile s = new ReadSaveFromFile();
 
         try {
             Object o = s.ReadFile("dev_cafe/data/menu_items_data.txt");
-            
+
             if (o instanceof ArrayList<?>) {
                 @SuppressWarnings("unchecked")
-                ArrayList<MenuItem> listOfItem= (ArrayList<MenuItem>) o;
+                ArrayList<MenuItem> listOfItem = (ArrayList<MenuItem>) o;
                 menu.addAllItem(listOfItem);
 
                 for (MenuItem item : menu.getListOfItem()) {
@@ -284,111 +388,27 @@ public class ProductPage extends JPanel {
         }
 
         JTable table = new JTable(tableModel);
-        table.setFont(customFont.getFernandoFont(9));
-        table.setForeground(new Color(79, 92, 133));
-        table.setBackground(new Color(255, 213, 146));
+        table.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        table.setForeground(Color.black);
+        table.setBackground(Color.white);
 
         JTableHeader tableHeader = table.getTableHeader();
-        tableHeader.setForeground(new Color(79, 92, 133));
-        tableHeader.setBackground(new Color(255, 213, 146));
-        tableHeader.setFont(customFont.getFernandoFont(9));
+        tableHeader.setForeground(Color.black);
+        tableHeader.setBackground(new Color(241, 211, 178));
+        tableHeader.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        tableHeader.setDefaultRenderer(new CustomTableHeaderRenderer());
 
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                // Call the superclass method to get the default renderer
-                JLabel cell = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
-                // Customize the cell's appearance based on your requirements
-                cell.setForeground(new Color(255, 213, 146)); // Set text color
-                cell.setBackground(new Color(79, 92, 133)); // Set background color
-                cell.setFont(customFont.getFernandoFont(9));
-        
-                return cell;
-            }
-        };
-        
         // Apply the custom renderer to each column
         for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(renderer);
+            table.getColumnModel().getColumn(i).setCellRenderer(new CustomTableCellRenderer());
         }
-    
+
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(800, 500));
-        scrollPane.setForeground(new Color(79, 92, 133));
-        scrollPane.getViewport().setBackground(new Color(255, 213, 146));
+        // scrollPane.setPreferredSize(new Dimension(800, 300));
+        scrollPane.setForeground(Color.black);
+        scrollPane.getViewport().setBackground(new Color(241, 211, 178));
 
         tablePanel.add(scrollPane, BorderLayout.CENTER);
-        
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        panel.setPreferredSize(new Dimension(800, 50));
-        panel.setOpaque(false);
-
-        JPanel left = new JPanel();
-        left.setLayout(new FlowLayout(FlowLayout.LEFT));
-        left.setPreferredSize(new Dimension(360, 35));
-        Border lineBorder = BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(255, 213, 146));
-        left.setBorder(lineBorder);
-        left.setOpaque(false);
-
-        JLabel searchLabel = new JLabel("Tìm kiếm:");
-        searchLabel.setFont(customFont.getFernandoFont(9));
-        searchLabel.setForeground(new Color(255, 213, 146));
-        searchLabel.setPreferredSize(new Dimension(60, 25)); // Thay đổi kích thước cho phù hợp
-        left.add(searchLabel);
-
-        JTextField searchBar = new JTextField();
-        searchBar.setForeground(new Color(79, 92, 133));
-        searchBar.setBackground(new Color(255, 213, 146));
-        searchBar.setBorder(null);
-        searchBar.setFont(customFont.getFernandoFont(9));
-        searchBar.setPreferredSize(new Dimension(170, 25)); // Thay đổi kích thước cho phù hợp và vị trí
-        left.add(searchBar);
-
-        JButton findProduct = new JButton("Tìm");
-        findProduct.setFont(customFont.getFernandoFont(10));
-        findProduct.setForeground(new Color(79, 92, 133));
-        findProduct.setBackground(new Color(255, 213, 146));
-        findProduct.setPreferredSize(new Dimension(100, 25));
-        left.add(findProduct);
-
-        panel.add(left);
-
-        JPanel right = new JPanel();
-        right.setLayout(new FlowLayout(FlowLayout.LEFT));
-        right.setPreferredSize(new Dimension(490, 35));
-        right.setOpaque(false);
-
-        JButton addButton = new JButton("Thêm");
-        addButton.setFont(customFont.getFernandoFont(10));
-        addButton.setPreferredSize(new Dimension(100, 25));
-        addButton.setForeground(new Color(79, 92, 133));
-        addButton.setBackground(new Color(255, 213, 146));
-        right.add(addButton);
-
-        JButton deleteButton = new JButton("Xóa");
-        deleteButton.setFont(customFont.getFernandoFont(10));
-        deleteButton.setPreferredSize(new Dimension(100, 25));
-        deleteButton.setForeground(new Color(79, 92, 133));
-        deleteButton.setBackground(new Color(255, 213, 146));
-        right.add(deleteButton);
-
-        JButton cancelChangeButton = new JButton("Hủy thay đổi");
-        cancelChangeButton.setFont(customFont.getFernandoFont(10));
-        cancelChangeButton.setPreferredSize(new Dimension(120, 25));
-        cancelChangeButton.setForeground(new Color(79, 92, 133));
-        cancelChangeButton.setBackground(new Color(255, 213, 146));
-        right.add(cancelChangeButton);
-
-        JButton saveButton = new JButton("Lưu");
-        saveButton.setFont(customFont.getFernandoFont(9));
-        saveButton.setPreferredSize(new Dimension(100, 25));
-        saveButton.setForeground(new Color(79, 92, 133));
-        saveButton.setBackground(new Color(255, 213, 146));
-        right.add(saveButton);
-
-        panel.add(right);
 
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -429,7 +449,8 @@ public class ProductPage extends JPanel {
                     // Delete the selected row
                     tableModel.removeRow(selectedRow);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Please select a row to delete", "Delete Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please select a row to delete", "Delete Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -461,8 +482,6 @@ public class ProductPage extends JPanel {
                 }
             }
         });
-
-        tablePanel.add(panel, BorderLayout.SOUTH);
 
         add(tablePanel, BorderLayout.CENTER);
     }

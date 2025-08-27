@@ -2,24 +2,41 @@ package app.Object;
 
 import java.io.Serializable;
 
-public class BillDetail implements Serializable{
-    MenuItem item;
+public class BillDetail implements Serializable {
+    String billId;
+    String itemId;
     int quantity;
     double total_price;
     private final double INC = 5.0;
 
-    public BillDetail(MenuItem item, int quantity) {
-        this.item = item;
+    public BillDetail(String billId, String itemId, int quantity) {
+        this.billId = billId;
+        this.itemId = itemId;
         this.quantity = quantity;
-        this.total_price = quantity * (item.getPrice() + INC);
     }
 
-    public MenuItem getItem() {
-        return this.item;
+    public String getBillId() {
+        return this.billId;
     }
 
-    public void setItem(MenuItem item) {
-        this.item = item;
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public double getINC() {
+        return this.INC;
+    }
+
+    public String getItemId() {
+        return this.itemId;
+    }
+
+    public void setItem(String itemId) {
+        this.itemId = itemId;
     }
 
     public double getTotal_price() {
@@ -37,6 +54,4 @@ public class BillDetail implements Serializable{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-
 }

@@ -3,55 +3,60 @@ package app.InitFont;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CustomFont {
     private Font fernandoFont;
     private Font twistyPixelFont;
+    private final ArrayList<Font> robotoFont = new ArrayList<>();
 
     public CustomFont() {
+        this.fernandoFont = loadFontFromResource("dev_cafe/font/FVF Fernando 08.ttf");
+        this.twistyPixelFont = loadFontFromResource("dev_cafe/font/CSFONT-TwistyPixel.ttf");
 
+        List<String> paths = Arrays.asList(
+                "dev_cafe/font/RobotoMono-Regular.ttf",
+                "dev_cafe/font/RobotoMono-Bold.ttf",
+                "dev_cafe/font/RobotoMono-BoldItalic.ttf",
+                "dev_cafe/font/RobotoMono-Italic.ttf");
+
+        robotoFont.addAll(loadFontsFromResources(paths));
+    }
+
+    private Font loadFontFromResource(String path) {
         try {
-            // Load the font file (assuming it's in the project directory)
-            // CSFONT-TwistyPixel
-            // FVF Fernando 08
-            File fontFile = new File("dev_cafe/font/FVF Fernando 08.ttf"); // For vscode
-            //File fontFile = new File("font/FVF Fernando 08.ttf"); // for eclipse, intelj
-            this.fernandoFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+            File fontFile = new File(path);
+            // InputStream fontFile = getClass().getResourceAsStream(path);
 
-            // Register the font with the graphics environment
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(fernandoFont);
-            
-            this.fernandoFont = this.fernandoFont.deriveFont(9.0f);
+            Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
+            return font;
         } catch (Exception e) {
             e.printStackTrace();
-            this.fernandoFont = new Font("Arial", Font.PLAIN, 12);
+            return new Font("Arial", Font.PLAIN, 12);
         }
+    }
 
-        try {
-            // Load the font file (assuming it's in the project directory)
-            // CSFONT-TwistyPixel
-            // FVF Fernando 08
-            File fontFile = new File("dev_cafe/font/CSFONT-TwistyPixel.ttf"); // For vscode
-            //File fontFile = new File("font/CSFONT-TwistyPixel.ttf"); // for eclipse, intelj
-            this.twistyPixelFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-
-            // Register the font with the graphics environment
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(twistyPixelFont);
-            
-            this.twistyPixelFont = this.twistyPixelFont.deriveFont(9.0f);
-        } catch (Exception e) {
-            e.printStackTrace();
-            this.twistyPixelFont = new Font("Arial", Font.PLAIN, 12);
+    private List<Font> loadFontsFromResources(List<String> paths) {
+        List<Font> fonts = new ArrayList<>();
+        for (String path : paths) {
+            fonts.add(loadFontFromResource(path));
         }
+        return fonts;
     }
 
     public Font getFernandoFont(float size) {
         return this.fernandoFont.deriveFont(size);
     }
 
-    public Font getTwistyPixelFont() {
-        return this.twistyPixelFont;
-    }    
+    public Font getTwistyPixelFont(float size) {
+        return this.twistyPixelFont.deriveFont(size);
+    }
+
+    public List<Font> getRobotoFonts() {
+        return this.robotoFont;
+    }
 }

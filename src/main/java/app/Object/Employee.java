@@ -7,18 +7,23 @@ import java.util.Objects;
 public class Employee implements Serializable {
     private String id;
     private String name;
+    private String gender;
     private LocalDate dob;
     private String phone;
+    private String email;
     private String responsibility;
 
     public Employee() {
     }
 
-    public Employee(String id, String name, LocalDate dob, String phone, String responsibility) {
+    public Employee(String id, String name, String gender, LocalDate dob, String phone, String email,
+            String responsibility) {
         this.id = id;
         this.name = name;
+        this.gender = gender;
         this.dob = dob;
         this.phone = phone;
+        this.email = email;
         this.responsibility = responsibility;
     }
 
@@ -38,6 +43,14 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
+    public String getGender() {
+        return this.gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public LocalDate getDob() {
         return this.dob;
     }
@@ -54,6 +67,14 @@ public class Employee implements Serializable {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getResponsibility() {
         return this.responsibility;
     }
@@ -62,5 +83,3 @@ public class Employee implements Serializable {
         this.responsibility = responsibility;
     }
 }
-
-    

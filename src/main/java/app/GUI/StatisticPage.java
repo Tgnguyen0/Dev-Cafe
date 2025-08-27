@@ -2,13 +2,13 @@ package app.GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -24,14 +24,16 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import app.Components.CustomBarRenderer;
 import app.InitFont.CustomFont;
 
 public class StatisticPage extends JPanel {
-    CustomFont cf = new CustomFont();
+    CustomFont customFont = new CustomFont();
 
     public StatisticPage() {
         setPreferredSize(new Dimension(1100, 600));
-        setOpaque(false);
+        setOpaque(true);
+        setBackground(Color.white);
         setLayout(new GridBagLayout());
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -44,46 +46,47 @@ public class StatisticPage extends JPanel {
 
         // Create the bar chart
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Monthly Sales of Product",  // Chart title
-                "Product",                  // X-axis label
-                "Sales",                    // Y-axis label
-                dataset,                    // Dataset
+                "Monthly Sales of Product", // Chart title
+                "Product", // X-axis label
+                "Sales", // Y-axis label
+                dataset, // Dataset
                 PlotOrientation.VERTICAL,
-                true,                       // Include legend
-                true,                       // Tooltips
-                false                       // URLs
+                true, // Include legend
+                true, // Tooltips
+                false // URLs
         );
         barChart.setBackgroundPaint(null);
 
         // Customize chart fonts and colors
-        TextTitle chartTitle = new TextTitle("Monthly Sales of Product", cf.getFernandoFont(14));
-        chartTitle.setPaint(new Color(255, 213, 146)); // Set chart title color
+        TextTitle chartTitle = new TextTitle("Monthly Sales of Product",
+                customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 14));
+        chartTitle.setPaint(Color.black); // Set chart title color
         barChart.setTitle(chartTitle);
 
         CategoryPlot plot = (CategoryPlot) barChart.getPlot();
-        plot.setBackgroundPaint(null);  // Make the plot background transparent
-        plot.setOutlinePaint(null);     // Make the plot outline transparent
-        
+        plot.setBackgroundPaint(null); // Make the plot background transparent
+        plot.setOutlinePaint(null); // Make the plot outline transparent
+
         CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setLabelFont(cf.getFernandoFont(12));
-        domainAxis.setTickLabelFont(cf.getFernandoFont(10));
-        domainAxis.setLabelPaint(new Color(255, 213, 146)); // Set domain axis label color
-        domainAxis.setTickLabelPaint(new Color(255, 213, 146)); // Set domain axis tick label color
+        domainAxis.setLabelFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        domainAxis.setTickLabelFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 10));
+        domainAxis.setLabelPaint(Color.black); // Set domain axis label color
+        domainAxis.setTickLabelPaint(Color.black); // Set domain axis tick label color
 
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setLabelFont(cf.getFernandoFont(12));
-        rangeAxis.setTickLabelFont(cf.getFernandoFont(10));
-        rangeAxis.setLabelPaint(new Color(255, 213, 146)); // Set range axis label color
-        rangeAxis.setTickLabelPaint(new Color(255, 213, 146)); // Set range axis tick label color
+        rangeAxis.setLabelFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        rangeAxis.setTickLabelFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 10));
+        rangeAxis.setLabelPaint(Color.black); // Set range axis label color
+        rangeAxis.setTickLabelPaint(Color.black); // Set range axis tick label color
 
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDefaultItemLabelFont(cf.getFernandoFont(10));
-        renderer.setSeriesPaint(0, new Color(255, 213, 146)); // Set bar color
+        BarRenderer renderer = new CustomBarRenderer();
+        plot.setRenderer(renderer);
 
         if (barChart.getLegend() != null) {
-            barChart.getLegend().setItemFont(cf.getFernandoFont(10));
-            barChart.getLegend().setItemPaint(new Color(255, 213, 146)); // Set legend item color
-            barChart.getLegend().setBackgroundPaint(new Color(255, 213, 146, 0)); // Set legend background color with some opacity
+            barChart.getLegend().setItemFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 10));
+            barChart.getLegend().setItemPaint(Color.black); // Set legend item color
+            barChart.getLegend().setBackgroundPaint(new Color(255, 213, 146, 0)); // Set legend background color with
+                                                                                  // some opacity
         }
 
         // Create the panel containing the chart
@@ -104,19 +107,21 @@ public class StatisticPage extends JPanel {
         add(chartPanel, gbc);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        String imagePath = "dev_cafe/asset/background.png"; // Path to your image file
-        File imageFile = new File(imagePath);
+    // @Override
+    // protected void paintComponent(Graphics g) {
+    // String imagePath = "dev_cafe/asset/background.png"; // Path to your image
+    // file
+    // File imageFile = new File(imagePath);
 
-        try {
-            Image image = ImageIO.read(imageFile);
-            int newWidth = getWidth();
-            int newHeight = getHeight();
-            Image scaledImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-            g.drawImage(scaledImage, 0, 0, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // try {
+    // Image image = ImageIO.read(imageFile);
+    // int newWidth = getWidth();
+    // int newHeight = getHeight();
+    // Image scaledImage = image.getScaledInstance(newWidth, newHeight,
+    // Image.SCALE_SMOOTH);
+    // g.drawImage(scaledImage, 0, 0, null);
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
 }

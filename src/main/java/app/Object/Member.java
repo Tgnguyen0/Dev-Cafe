@@ -2,23 +2,17 @@ package app.Object;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Member implements Serializable {
     private String id;
     private String name;
     private LocalDate dob;
+    private LocalDate registerDay;
     private int points;
     private String phone;
 
     public Member() {
-    }
-    
-    public Member(String id, String name, LocalDate dob, int points, String phone) {
-        this.id = id;
-        this.name = name;
-        this.dob = dob;
-        this.points = points;
-        this.phone = phone;
     }
 
     public String getId() {
@@ -45,6 +39,14 @@ public class Member implements Serializable {
         this.dob = dob;
     }
 
+    public LocalDate getRegisterDay() {
+        return this.registerDay;
+    }
+
+    public void setRegisterDay(LocalDate registerDay) {
+        this.registerDay = registerDay;
+    }
+
     public int getPoints() {
         return this.points;
     }
@@ -60,5 +62,4 @@ public class Member implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 }
