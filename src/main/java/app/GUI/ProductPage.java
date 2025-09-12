@@ -227,7 +227,7 @@ public class ProductPage extends JPanel {
         // imgPanel.setBorder(lineBorder);
         imgPanel.setOpaque(false);
 
-        String imagePath = "dev_cafe/asset/placeholder.png";
+        String imagePath = "asset/placeholder.png";
         Image scaledImage;
 
         try {
@@ -461,7 +461,7 @@ public class ProductPage extends JPanel {
                 ReadSaveFromFile s = new ReadSaveFromFile();
 
                 try {
-                    s.SaveFile(menu.getListOfItem(), "dev_cafe/data/menu_items_data.txt");
+                    s.SaveFile(menu.getListOfItem(), "data/menu_items_data.txt");
                     System.out.println("Save successfully!");
                 } catch (Exception ee) {
                     ee.printStackTrace();

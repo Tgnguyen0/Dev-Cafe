@@ -14,14 +14,14 @@ public class CustomFont {
     private final ArrayList<Font> robotoFont = new ArrayList<>();
 
     public CustomFont() {
-        this.fernandoFont = loadFontFromResource("dev_cafe/font/FVF Fernando 08.ttf");
-        this.twistyPixelFont = loadFontFromResource("dev_cafe/font/CSFONT-TwistyPixel.ttf");
+        this.fernandoFont = loadFontFromResource("font/FVF Fernando 08.ttf");
+        this.twistyPixelFont = loadFontFromResource("font/CSFONT-TwistyPixel.ttf");
 
         List<String> paths = Arrays.asList(
-                "dev_cafe/font/RobotoMono-Regular.ttf",
-                "dev_cafe/font/RobotoMono-Bold.ttf",
-                "dev_cafe/font/RobotoMono-BoldItalic.ttf",
-                "dev_cafe/font/RobotoMono-Italic.ttf");
+                "font/RobotoMono-Regular.ttf",
+                "font/RobotoMono-Bold.ttf",
+                "font/RobotoMono-BoldItalic.ttf",
+                "font/RobotoMono-Italic.ttf");
 
         robotoFont.addAll(loadFontsFromResources(paths));
     }

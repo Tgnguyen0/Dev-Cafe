@@ -80,7 +80,7 @@ public class HomePage extends JPanel {
         right.setBackground(Color.white);
 
         try {
-            BufferedImage icon = ImageIO.read(new File("dev_cafe/asset/unnamed.png"));
+            BufferedImage icon = ImageIO.read(new File("asset/unnamed.png"));
 
             // Resize ảnh trước
             int targetWidth = (int) (1024 * 0.3);
@@ -117,7 +117,7 @@ public class HomePage extends JPanel {
         left1.setBackground(Color.white);
 
         try {
-            BufferedImage icon = ImageIO.read(new File("dev_cafe/asset/unnamed (3).png"));
+            BufferedImage icon = ImageIO.read(new File("asset/unnamed (3).png"));
 
             // Resize ảnh trước
             int targetWidth = (int) (1024 * 0.3);

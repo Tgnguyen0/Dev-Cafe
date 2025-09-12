@@ -231,7 +231,7 @@ public class EmployeePage extends JPanel {
         // imgPanel.setBorder(lineBorder);
         imgPanel.setOpaque(false);
 
-        String imagePath = "dev_cafe/asset/user.png";
+        String imagePath = "asset/user.png";
         Image scaledImage;
 
         try {
@@ -466,7 +466,7 @@ public class EmployeePage extends JPanel {
                 ReadSaveFromFile s = new ReadSaveFromFile();
 
                 try {
-                    s.SaveFile(employeeList.getEmployeeList(), "dev_cafe/data/employees_data.txt");
+                    s.SaveFile(employeeList.getEmployeeList(), "data/employees_data.txt");
                     System.out.println("Save successfully!");
                 } catch (Exception ee) {
                     ee.printStackTrace();

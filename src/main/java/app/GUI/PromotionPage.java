@@ -226,7 +226,7 @@ public class PromotionPage extends JPanel {
         // imgPanel.setBorder(lineBorder);
         imgPanel.setOpaque(false);
 
-        String imagePath = "dev_cafe/asset/user.png";
+        String imagePath = "asset/user.png";
         Image scaledImage;
 
         try {
@@ -472,7 +472,7 @@ public class PromotionPage extends JPanel {
                 ReadSaveFromFile s = new ReadSaveFromFile();
 
                 try {
-                    s.SaveFile(memberList.getAllMember(), "dev_cafe/data/customers_data.txt");
+                    s.SaveFile(memberList.getAllMember(), "data/customers_data.txt");
                     System.out.println("Save successfully!");
                 } catch (Exception ee) {
                     ee.printStackTrace();

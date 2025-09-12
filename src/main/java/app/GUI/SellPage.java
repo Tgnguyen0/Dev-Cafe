@@ -186,17 +186,18 @@ public class SellPage extends JPanel {
 
         JPanel productPanel = new JPanel(new GridBagLayout());
         // productPanel.setOpaque(false);
+        // productPanel.setPreferredSize(new Dimension(1200, 1000));
         productPanel.setBackground(Color.white);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // khoảng cách giữa các nút
         gbc.anchor = GridBagConstraints.CENTER;
 
-        int columns = 4;
+        int columns = 3;
         for (int i = 0; i < 100; i++) {
             String text = "Cappuccino";
             ImagePanelButton productButton = new ImagePanelButton(text, "", i,
-                    "dev_cafe/asset/placeholder.png", 200,
+                    "asset/placeholder.png", 200,
                     200,
                     0.8);
             productButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));

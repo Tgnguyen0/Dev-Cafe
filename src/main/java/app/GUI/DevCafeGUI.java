@@ -64,7 +64,7 @@ public class DevCafeGUI extends JFrame implements MouseListener {
 
     // Function tạo GUI chính
     public DevCafeGUI() {
-        ImageIcon icon = new ImageIcon("dev_cafe/asset/icon.png"); // For vscode
+        ImageIcon icon = new ImageIcon("asset/icon.png"); // For vscode
         setTitle("Dev Cafe");
         // setSize(new Dimension(1200, 700));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
