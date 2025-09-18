@@ -5,6 +5,7 @@ import app.Components.CustomTableCellRenderer;
 import app.Components.CustomTableHeaderRenderer;
 import app.Components.ImagePanelButton;
 import app.InitFont.CustomFont;
+import app.Listener.ActionListener_SellPage;
 import app.Object.BillDetail;
 import app.Object.MenuItem;
 import app.SaveToFile.ReadSaveFromFile;
@@ -34,20 +35,7 @@ import java.util.Vector;
 import java.awt.Component;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultCellEditor;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -62,19 +50,21 @@ import org.kordamp.ikonli.swing.FontIcon;
 
 public class SellPage extends JPanel {
     private CustomFont customFont = new CustomFont();
-    private DefaultTableModel receiptTableModel;
-    private DefaultTableModel productTableModel;
     private CafeFunction menu = new CafeFunction();
     private BillDetailsManagement bdl = new BillDetailsManagement();
+    private ActionListener_SellPage action;
+    public JRadioButton takeAwayRadioButton;
+    public JButton seatingButton;
+    private DefaultTableModel productTableModel;
     private JTable productTable;
-    private JTable table;
-    private OrderButtonListener orderButtonListener;
     private boolean created = false;
 
     public SellPage() {
         setPreferredSize(new Dimension(1100, 500));
         setLayout(new BorderLayout());
         setBackground(Color.white);
+
+        action = new ActionListener_SellPage(this);
 
         JPanel emptyL = new JPanel();
         emptyL.setPreferredSize(new Dimension(16, 500));
@@ -180,9 +170,10 @@ public class SellPage extends JPanel {
 
     public JPanel createProductPanel() {
         JPanel ptPanel = new JPanel();
-        ptPanel.setOpaque(false);
-        ptPanel.setPreferredSize(new Dimension(800, 300));
-        ptPanel.setLayout(new BorderLayout());
+//        ptPanel.setOpaque(false);
+        ptPanel.setBackground(Color.ORANGE);
+        ptPanel.setPreferredSize(new Dimension(800, 800));
+        ptPanel.setLayout(new BoxLayout(ptPanel, BoxLayout.X_AXIS));
 
         JPanel productPanel = new JPanel(new GridBagLayout());
         // productPanel.setOpaque(false);
@@ -212,15 +203,22 @@ public class SellPage extends JPanel {
         JScrollPane scrollPanel = new JScrollPane(productPanel);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setPreferredSize(new Dimension(400, 300));
+        scrollPanel.setPreferredSize(new Dimension(1000, 400));
         scrollPanel.setOpaque(false);
         scrollPanel.getViewport().setOpaque(false);
         scrollPanel.setWheelScrollingEnabled(true);
 
         JPanel right = new JPanel();
-        right.setPreferredSize(new Dimension(400, 300));
-        right.setLayout(new BorderLayout());
-        right.setBackground(Color.WHITE);
+        right.setPreferredSize(new Dimension(400, 400));
+        right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
+        right.setBackground(Color.BLUE);
+
+        JPanel labelPanel = new JPanel();
+        labelPanel.setPreferredSize(new Dimension(400, 40));
+        labelPanel.setBackground(Color.white);
+        labelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        right.add(labelPanel);
+        right.add(Box.createVerticalStrut(10));
 
         FontIcon cartIcon = FontIcon.of(Feather.SHOPPING_CART, 24, Color.BLACK);
         JLabel chosenItemLabel = new JLabel(
@@ -230,7 +228,7 @@ public class SellPage extends JPanel {
         chosenItemLabel.setIconTextGap(8);
         chosenItemLabel.setForeground(Color.BLACK);
         chosenItemLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        right.add(chosenItemLabel, BorderLayout.NORTH);
+        labelPanel.add(chosenItemLabel);
 
         productTableModel = new DefaultTableModel() {
             @Override
@@ -277,6 +275,7 @@ public class SellPage extends JPanel {
         JTableHeader tableHeader = productTable.getTableHeader();
         tableHeader.setForeground(Color.black);
         tableHeader.setBackground(Color.white);
+        tableHeader.setReorderingAllowed(false);
         tableHeader.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
 
         tableHeader.setDefaultRenderer(new CustomTableHeaderRenderer());
@@ -285,26 +284,28 @@ public class SellPage extends JPanel {
         }
 
         JScrollPane scrollPane = new JScrollPane(productTable);
-        scrollPane.setPreferredSize(new Dimension(400, 200));
+        scrollPane.setPreferredSize(new Dimension(400, 600));
         scrollPane.getViewport().setBackground(new Color(255, 213, 146));
         scrollPane.setBackground(Color.white);
         scrollPane.setForeground(Color.black);
-        right.add(scrollPane, BorderLayout.CENTER);
+        right.add(scrollPane);
+        right.add(Box.createHorizontalStrut(10));
 
         JPanel editPanel = new JPanel();
-        editPanel.setPreferredSize(new Dimension(400, 200));
+        editPanel.setPreferredSize(new Dimension(400, 120));
         editPanel.setBackground(Color.white);
         editPanel.setForeground(Color.black);
-        editPanel.setLayout(new BorderLayout());
-        right.add(editPanel, BorderLayout.SOUTH);
+        editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.Y_AXIS));
+        right.add(editPanel);
+        right.add(Box.createHorizontalStrut(10));
 
         JPanel promoPanel = new JPanel();
-        promoPanel.setPreferredSize(new Dimension(400, 50));
+        promoPanel.setPreferredSize(new Dimension(400, 25));
         promoPanel.setBackground(Color.white);
         promoPanel.setForeground(Color.black);
-        promoPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        promoPanel.setLayout(new BoxLayout(promoPanel, BoxLayout.X_AXIS));
         promoPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        editPanel.add(promoPanel, BorderLayout.NORTH);
+        editPanel.add(promoPanel);
 
         FontIcon percentIcon = FontIcon.of(Feather.PERCENT, 24, Color.BLACK);
         JLabel promotionLabel = new JLabel(
@@ -312,6 +313,7 @@ public class SellPage extends JPanel {
                 (Icon) percentIcon,
                 JLabel.LEFT);
         promotionLabel.setIconTextGap(8);
+        promotionLabel.setPreferredSize(new Dimension(160, 25));
         promotionLabel.setForeground(Color.BLACK);
         promoPanel.add(promotionLabel);
 
@@ -322,18 +324,60 @@ public class SellPage extends JPanel {
         promoBar.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
         promoBar.setPreferredSize(new Dimension(100, 25));
         promoPanel.add(promoBar);
+        promoPanel.add(Box.createHorizontalStrut(10));
 
         JButton applyPromoButton = new JButton("Apply");
         applyPromoButton.setBackground(Color.white);
         applyPromoButton.setForeground(Color.black);
+        applyPromoButton.setPreferredSize(new Dimension(90, 25));
         applyPromoButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
         promoPanel.add(applyPromoButton);
+
+        JPanel takeAwayPanel = new JPanel();
+        takeAwayPanel.setPreferredSize(new Dimension(400, 25));
+        takeAwayPanel.setBackground(Color.white);
+        takeAwayPanel.setForeground(Color.black);
+        takeAwayPanel.setLayout(new BoxLayout(takeAwayPanel, BoxLayout.X_AXIS));
+        editPanel.add(takeAwayPanel);
+        editPanel.add(Box.createVerticalStrut(10));
+
+        FontIcon takeAwayIcon = FontIcon.of(Feather.SHOPPING_BAG, 24, Color.BLACK);
+        JLabel takeAwayLabel = new JLabel(
+                "<html><div style='text-align: left; font-size: 13px;'><b>Take Away:</b></div></html>",
+                (Icon) takeAwayIcon,
+                JLabel.LEFT
+        );
+        takeAwayLabel.setBackground(Color.WHITE);
+        takeAwayLabel.setForeground(Color.BLACK);
+        takeAwayLabel.setIconTextGap(8);
+        takeAwayLabel.setPreferredSize(new Dimension(160, 25));
+        takeAwayPanel.add(takeAwayLabel);
+
+        takeAwayRadioButton = new JRadioButton("Yes");
+        takeAwayRadioButton.setPreferredSize(new Dimension(100, 25));
+        takeAwayRadioButton.setForeground(Color.BLACK);
+        takeAwayRadioButton.setBackground(Color.white);
+        takeAwayRadioButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        takeAwayRadioButton.addActionListener(action);
+        takeAwayPanel.add(takeAwayRadioButton);
+        takeAwayPanel.add(Box.createHorizontalStrut(10));
+
+        seatingButton = new JButton("Seating");
+        seatingButton.setBackground(Color.white);
+        seatingButton.setForeground(Color.black);
+        seatingButton.setPreferredSize(new Dimension(90, 25));
+        seatingButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
+        seatingButton.addActionListener(action);
+        if (!takeAwayRadioButton.isSelected()) seatingButton.setEnabled(true);
+        takeAwayPanel.add(seatingButton);
 
         JPanel funcPanel = new JPanel();
         funcPanel.setPreferredSize(new Dimension(400, 25));
         funcPanel.setBackground(Color.white);
         funcPanel.setForeground(Color.black);
-        editPanel.add(funcPanel, BorderLayout.CENTER);
+        funcPanel.setLayout(new BoxLayout(funcPanel, BoxLayout.X_AXIS));
+        editPanel.add(funcPanel);
+        editPanel.add(Box.createVerticalStrut(10));
 
         FontIcon editIcon = FontIcon.of(Feather.EDIT, 24, Color.BLACK);
         JButton updateButton = new JButton("Update", editIcon);
@@ -341,6 +385,7 @@ public class SellPage extends JPanel {
         updateButton.setForeground(Color.black);
         updateButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
         funcPanel.add(updateButton);
+        funcPanel.add(Box.createHorizontalStrut(10));
 
         FontIcon trashIcon = FontIcon.of(Feather.TRASH, 24, Color.BLACK);
         JButton deleteButton = new JButton("Delete", trashIcon);
@@ -348,6 +393,7 @@ public class SellPage extends JPanel {
         deleteButton.setForeground(Color.black);
         deleteButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
         funcPanel.add(deleteButton);
+        funcPanel.add(Box.createHorizontalStrut(10));
 
         FontIcon invoiceIcon = FontIcon.of(Feather.FILE_TEXT, 24, Color.BLACK);
         JButton toInvoiceButton = new JButton("Invoice", invoiceIcon);
@@ -356,8 +402,9 @@ public class SellPage extends JPanel {
         toInvoiceButton.setFont(customFont.getRobotoFonts().get(0).deriveFont(Font.PLAIN, 12));
         funcPanel.add(toInvoiceButton);
 
-        ptPanel.add(right, BorderLayout.EAST);
-        ptPanel.add(scrollPanel, BorderLayout.CENTER);
+        ptPanel.add(scrollPanel);
+        ptPanel.add(Box.createHorizontalStrut(10));
+        ptPanel.add(right);
         return ptPanel;
     }
 
@@ -387,9 +434,5 @@ public class SellPage extends JPanel {
 
     public interface OrderButtonListener {
         void onOrderPlaced();
-    }
-
-    public void setOrderButtonListener(OrderButtonListener listener) {
-        this.orderButtonListener = listener;
     }
 }

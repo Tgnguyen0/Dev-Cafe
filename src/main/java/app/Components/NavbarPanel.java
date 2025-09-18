@@ -12,15 +12,13 @@ import javax.swing.SwingConstants;
 import org.kordamp.ikonli.feather.Feather;
 import org.kordamp.ikonli.swing.FontIcon;
 
-import com.formdev.flatlaf.util.Animator;
-
 import app.InitFont.CustomFont;
-import app.Listener.ActionListener_ChangePage;
+import app.Listener.ActionListener_NavbarPanel;
 import net.miginfocom.swing.MigLayout;
 
 public class NavbarPanel extends JPanel {
         private CustomFont customFont = new CustomFont();
-        private ActionListener_ChangePage action = new ActionListener_ChangePage();
+        private ActionListener_NavbarPanel action = new ActionListener_NavbarPanel();
         public JLabel logoNameLabel;
         public NavbarButton homeButton;
         public NavbarButton sellButton;

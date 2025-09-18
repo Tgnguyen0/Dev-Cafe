@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import app.GUI.DevCafeGUI;
 
-public class ActionListener_ChangePage implements ActionListener {
+public class ActionListener_NavbarPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {

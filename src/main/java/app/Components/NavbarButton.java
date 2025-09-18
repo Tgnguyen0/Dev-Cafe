@@ -13,9 +13,7 @@ import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import app.InitFont.CustomFont;
-import app.Listener.ActionListener_ChangePage;
 import app.Listener.MouseListener_NavbarButton;
-import java.util.Objects;
 
 public class NavbarButton extends JButton {
     private CustomFont customFont = new CustomFont();
